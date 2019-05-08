@@ -64,9 +64,9 @@ class Canvas {
 	}
 
 	public drawBackgorund = () => {
-		var gradient = this.cx.createLinearGradient(0, 0, 0, this.canvas.height);
+		var gradient = this.cx.createLinearGradient(0, 0, 0, this.game.size.y);
 		gradient.addColorStop(0, '#224');
-		gradient.addColorStop(1, '#88f');
+		gradient.addColorStop(1, '#448');
 		this.cx.fillStyle = gradient;
 		this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 	}

@@ -1,11 +1,12 @@
 ﻿<html>
 
 <head>
-  <title>TEST ZONE</title>
+  <title>Myon</title>
   <meta charset="utf-8">
 	<link rel="icon" href="img/favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
+  <script src="js/keyCodes.js"></script>
   <script src="js/vector2D.js"></script>
 
   <script src="js/player.js"></script>
@@ -23,12 +24,16 @@
       <button onclick="zoom++;">Zoom In</button>
       <button onclick="if (zoom > 1) zoom--;">Zoom Out</button>
       <button onclick="zoom = 3;">Reset Zoom</button>
+      <button onclick="document.getElementById('controls-container').style.display = 'flex';">Controls</button>
   </nav>
 
   <p id="informations" onclick="document.getElementById('informations').style.display = 'none';">
   Informations<br>
   ???
   </p>
+  <div id="controls-container">
+    <div id="controls"></div>
+  </div>
 </body>
 
 </html>
