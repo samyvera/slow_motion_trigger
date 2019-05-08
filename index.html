@@ -25,6 +25,7 @@
       <button onclick="if (zoom > 1) zoom--;">Zoom Out</button>
       <button onclick="zoom = 3;">Reset Zoom</button>
       <button onclick="document.getElementById('controls-container').style.display = 'flex';">Controls</button>
+      <button onclick="document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();">Fullscreen</button>
   </nav>
 
   <p id="informations" onclick="document.getElementById('informations').style.display = 'none';">
