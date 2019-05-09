@@ -79,10 +79,12 @@ class Player extends Actor {
                 if (this.action === "charge") {
                     this.action = null;
                     this.charge = 0;
-                    this.chargeMax = false;
-                    game.step *= 2;
-                    this.stepModifier /= 2;
-                    this.animationKey /= 2;
+                    if (this.chargeMax) {
+                        this.chargeMax = false;
+                        game.step *= 2;
+                        this.stepModifier /= 2;
+                        this.animationKey /= 2;
+                    }
                 }
             }
             this.moveX(game);
