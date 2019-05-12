@@ -21,8 +21,7 @@ class Canvas {
 	}
 
 	public drawFrame = (time: number, zoom: number): void => {
-		this.drawBackgorund();
-		this.drawVisibility(this.game.player);
+		this.drawBackground();
 		this.drawPlayer(this.game.player);
 
 		if (this.lastTime) this.hud(time);
@@ -62,46 +61,8 @@ class Canvas {
 		}
 	}
 
-	public drawVisibility = (player: Player) => {
-		var centerX: number = player.pos.x + player.size.x / 2;
-		var centerY: number = player.pos.y + player.size.y / 2;
-		this.cx.lineWidth = 1 / this.zoom;
-		this.cx.strokeStyle = "#f00";
-		this.cx.beginPath();
-		this.cx.arc(centerX, centerY, player.visibilityRadius, 0, 2 * Math.PI);
-		this.cx.stroke();
-		this.cx.strokeStyle = "#0f0";
-		this.cx.beginPath();
-		this.cx.arc(centerX, centerY, player.visibilityRadius / 0.75, 0, 2 * Math.PI);
-		this.cx.stroke();
-
-		if (player.myon) {
-			var myonX: number = player.myon.pos.x + player.myon.size.x / 2;
-			var myonY: number = player.myon.pos.y + player.myon.size.y / 2;
-			this.cx.strokeStyle = "#0f0";
-			this.cx.beginPath();
-			this.cx.arc(myonX, myonY, this.game.player.visibilityRadius / 2, 0, 2 * Math.PI);
-			this.cx.stroke();
-			this.cx.strokeStyle = "#f00";
-			this.cx.beginPath();
-			this.cx.arc(myonX, myonY, this.game.player.visibilityRadius / 3, 0, 2 * Math.PI);
-			this.cx.stroke();
-		}
-
-		var check_a_point = (a: number, b: number, x: number, y: number, r: number): boolean => (a - x) * (a - x) + (b - y) * (b - y) < r * r;
-
-		// this.cx.fillStyle = "#000";
-		// for (let i = 0; i < this.game.size.y; i++) {
-		// 	for (let j = 0; j < this.game.size.x; j++) {
-		// 		if (!check_a_point(j, i, centerX, centerY, player.visibilityRadius / 2) && ((i % 2 === 0 && j % 2 !== 0) || (i % 2 !== 0 && j % 2 === 0))) this.cx.fillRect(j, i, 1, 1);
-		// 		else if (!check_a_point(j, i, centerX, centerY, player.visibilityRadius)) this.cx.fillRect(j, i, 1, 1);
-		// 	}
-		// }
-	}
-
-	public drawBackgorund = () => {
-		this.cx.fillStyle = "#112";
-		this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+	public drawBackground = () => {
+		this.cx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 
 	public drawMagic = (posX: number, posY: number) => {
@@ -137,27 +98,13 @@ class Canvas {
 	}
 
 	public drawMyon = (myon: Myon): void => {
-
-		var Xperiod = 0.1;
-		var Xamplitude = Math.sin(this.animationTime * 0.01) * 32;
-		this.cx.fillStyle = "#fff";
-		this.cx.textAlign = "left";
-		this.cx.font = "16px rcr";
-		var myonX = myon.pos.x + Math.cos(this.animationTime * Xperiod) * Xamplitude;
-
-		var Yperiod = 0.1;
-		var Yamplitude = Math.cos(this.animationTime * 0.01) * 32;
-		var myonY = myon.pos.y + Math.sin(this.animationTime * Yperiod) * Yamplitude;
-
 		var size = myon.radius;
 
 		this.cx.fillStyle = "#fff";
 		this.cx.beginPath();
-		this.cx.arc(myonX, myonY, size, 0, 2 * Math.PI);
+		this.cx.arc(myon.pos.x, myon.pos.y, size, 0, 2 * Math.PI);
 		this.cx.fill();
 
-		if (myon.posHystory.length > 10) myon.posHystory.splice(0, 1);
-		myon.posHystory.push([myonX, myonY]);
 		myon.posHystory.forEach((myonPart, i) => {
 			this.cx.beginPath();
 			this.cx.arc(myonPart[0], myonPart[1], size - (10 - i) / 10 * size, 0, 2 * Math.PI);

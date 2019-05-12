@@ -71,6 +71,10 @@ class Player extends Actor {
                         game.step /= 2;
                         this.stepModifier *= 2;
                         this.animationKey *= 2;
+                        if (this.myon) {
+                            this.myon.stepModifier *= 2;
+                            this.myon.animationKey *= 2;
+                        }
                     }
                 }
             }
@@ -84,11 +88,17 @@ class Player extends Actor {
                         game.step *= 2;
                         this.stepModifier /= 2;
                         this.animationKey /= 2;
+                        if (this.myon) {
+                            this.myon.stepModifier /= 2;
+                            this.myon.animationKey /= 2;
+                        }
                     }
                 }
             }
             this.moveX(game);
             this.moveY(game);
+            if (this.myon)
+                this.myon.act(game, keys);
             for (let i = 0; i < this.controls.length; i++)
                 this.controlsMemory[i] = this.controls[i];
             this.animationTime += game.step * this.stepModifier;
