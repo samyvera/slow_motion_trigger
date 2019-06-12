@@ -4,7 +4,7 @@ class Game {
     public relativeFrame: number = 0;
     public step: number = 1;
 
-    public size: Vector2D = new Vector2D(256, 128);
+    public size: Vector2D = new Vector2D(256, 256);
     public player: Player;
 
     constructor() {

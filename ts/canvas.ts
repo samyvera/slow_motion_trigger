@@ -62,7 +62,30 @@ class Canvas {
 	}
 
 	public drawBackground = () => {
-		this.cx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		// this.cx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		
+		this.cx.fillStyle = "#000";
+		this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+		if (this.game.player && this.game.player.controls[1]) {
+			this.drawSakura();
+		}
+	}
+
+	public drawSakura = () => {
+		var sakura: HTMLImageElement = document.createElement("img");
+		sakura.src = "img/sakura.png";
+
+		this.cx.globalAlpha = this.game.player.charge / 100;
+		this.cx.translate(this.game.size.x / 2, this.game.size.y / 2);
+		this.cx.rotate(-(this.animationTime * 2 % 360 * Math.PI / 180));
+		this.cx.drawImage(
+			sakura, 0, 0, 512, 512,
+			-256, -256, 512, 512
+		);
+		this.cx.rotate(this.animationTime * 2 % 360 * Math.PI / 180);
+		this.cx.translate(-this.game.size.x / 2, -this.game.size.y / 2);
+		this.cx.globalAlpha = 1;
 	}
 
 	public drawMagic = (posX: number, posY: number) => {
@@ -123,7 +146,7 @@ class Canvas {
 		var centerY: number = posY + player.size.y / 2;
 		
 		var spriteY: number = 0;
-		if (player.controls[0]) {
+		if (player.controls[1]) {
 			if (player.animationKey < 8 * this.game.step * player.stepModifier) {
 				spriteY = 1;
 				if (player.animationKey === 0) player.animationTime = 0;
@@ -139,12 +162,12 @@ class Canvas {
 		sprites.src = "img/youmu.png";
 
 		this.drawMagic(centerX, centerY);
-		if (player.myon && Math.sin(this.animationTime * 0.1) >= 0) this.drawMyon(player.myon);
+		if (player.myon && Math.sin(player.myon.animationTime * 0.1) >= 0) this.drawMyon(player.myon);
 		if (player.charge) this.drawPlayerShadow(spriteX, width, height, centerX, centerY);
 		this.cx.drawImage(sprites,
 			spriteX * width, spriteY * height, width, height,
 			centerX - width / 2, centerY - height / 2, width, height);
-		if (player.myon && Math.sin(this.animationTime * 0.1) < 0) this.drawMyon(player.myon);
+		if (player.myon && Math.sin(player.myon.animationTime * 0.1) < 0) this.drawMyon(player.myon);
 
 		if (player.focus) {
 			this.cx.fillStyle = "#f008";

@@ -59,7 +59,7 @@ class Player extends Actor {
                 this.focus = !this.focus;
                 this.speed *= 2;
             }
-            if (this.controls[0] && this.controlsMemory[0]) {
+            if (this.controls[1] && this.controlsMemory[1]) {
                 if (this.chargeCooldown > 0)
                     this.chargeCooldown--;
                 else {
@@ -78,7 +78,7 @@ class Player extends Actor {
                     }
                 }
             }
-            if (!this.controls[0] && this.controlsMemory[0]) {
+            if (!this.controls[1] && this.controlsMemory[1]) {
                 this.chargeCooldown = 32;
                 if (this.action === "charge") {
                     this.action = null;

@@ -3,7 +3,7 @@ class Game {
         this.frame = 0;
         this.relativeFrame = 0;
         this.step = 1;
-        this.size = new Vector2D(256, 128);
+        this.size = new Vector2D(256, 256);
         this.update = (keys) => {
             this.player.act(this, keys);
             this.relativeFrame += this.step;
